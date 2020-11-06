@@ -15,11 +15,13 @@ using System.Runtime.Remoting.Contexts;
 using Microsoft.AspNetCore.Hosting;
 using System.Net.Http.Headers;
 using BussinessLayer.Validation;
+using Microsoft.AspNetCore.Cors;
 
 namespace BagShopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class ProductsController : ControllerBase
     {
         private IUnitOfWork _unitOfWork;
@@ -37,7 +39,7 @@ namespace BagShopAPI.Controllers
             var list = _unitOfWork.Products.getAll();
             if (list.Count() > 0)
             {
-                return StatusCode(StatusCodes.Status302Found, list);
+                return StatusCode(StatusCodes.Status200OK, list);
             }
             return StatusCode(StatusCodes.Status204NoContent);
         }
