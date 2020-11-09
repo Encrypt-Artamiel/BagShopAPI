@@ -12,7 +12,11 @@ namespace BussinessLayer.Repositories
     {
         public OrderDetailsRepository(LNBagShopDBEntities context) : base(context)
         {
+        }
 
+        public bool addRange()
+        {
+            return false;
         }
     }
 }

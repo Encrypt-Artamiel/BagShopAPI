@@ -13,7 +13,10 @@ namespace BussinessLayer.Repositories
         public ProductsRepository(LNBagShopDBEntities context) : base(context)
         {
         }
-
+        public IEnumerable<DTO.Product> GetProducts(int page=1)
+        {
+            return mapper.Map<List<DataAccessLayer.Product>, List<DTO.Product>>(_context.Products.OrderBy(des => des.productID).Skip((page-1)*1).Take(1).ToList());
+        }
         public DTO.Product UpdateProduct(DTO.Product product)
         {
             DataAccessLayer.Product currentProduct = _context.Products.Find(product.productID);

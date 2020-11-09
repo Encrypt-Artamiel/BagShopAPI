@@ -8,6 +8,7 @@ namespace BussinessLayer.Interfaces
 {
     public interface IProductRepository:IRepositoryBase<DataAccessLayer.Product,DTO.Product>
     {
+        IEnumerable<DTO.Product> GetProducts(int page);
         DTO.Product UpdateProduct(DTO.Product product);
     }
 }
