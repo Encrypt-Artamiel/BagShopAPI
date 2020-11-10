@@ -11,70 +11,70 @@ using BussinessLayer.Interfaces;
 
 namespace BussinessLayer.Repositories
 {
-    public class RepositoryBase<TS,TD> : IRepositoryBase<TS,TD>
-        where TS : class
-        where TD : class
+    public class RepositoryBase<TEntity,TDTO> : IRepositoryBase<TEntity, TDTO>
+        where TEntity : class //table
+        where TDTO : class //DTO
     {
         protected readonly LNBagShopDBEntities _context;
         public RepositoryBase(LNBagShopDBEntities context)
         {
             _context = context;
         }
-        public TD ConvertToDestinationType(TS entity)
+        public TDTO ConvertToDestinationType(TEntity entity)
         {
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new MappingProfile());
             });
             var mapper = config.CreateMapper();
-            return mapper.Map<TS, TD>(entity);
+            return mapper.Map<TEntity, TDTO>(entity);
         }
-        public TS ConvertToSourceType(TD entity)
+        public TEntity ConvertToSourceType(TDTO dto)
         {
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new MappingProfile());
             });
             var mapper = config.CreateMapper();
-            return mapper.Map<TD, TS>(entity);
+            return mapper.Map<TDTO, TEntity>(dto);
         }
-        public void Add(ref TD entity)
+        public void Add(ref TDTO entity)
         {
-            TS SourceEntity = ConvertToSourceType(entity);
-            _context.Set<TS>().Add(SourceEntity);
+            TEntity SourceEntity = ConvertToSourceType(entity);
+            _context.Set<TEntity>().Add(SourceEntity);
             _context.SaveChanges();
             entity = ConvertToDestinationType(SourceEntity);
         }
 
-        public IEnumerable<TD> Find(Expression<Func<TS, bool>> expression)
+        public IEnumerable<TDTO> Find(Expression<Func<TEntity, bool>> expression)
         {
-            var totalResult = _context.Set<TS>().Where(expression);
-            List<TD> returnList = new List<TD>();
-            foreach(TS ts in totalResult)
+            var totalResult = _context.Set<TEntity>().Where(expression);
+            List<TDTO> returnList = new List<TDTO>();
+            foreach(TEntity ts in totalResult)
             {
                 returnList.Add(ConvertToDestinationType(ts));
             }
             return returnList;
         }
 
-        public IEnumerable<TD> getAll()
+        public IEnumerable<TDTO> getAll()
         {
-            List<TD> returnList = new List<TD>();
-            foreach(TS entity in _context.Set<TS>().ToList())
+            List<TDTO> returnList = new List<TDTO>();
+            foreach(TEntity entity in _context.Set<TEntity>().ToList())
             {
                 returnList.Add(ConvertToDestinationType(entity));
             }
             return returnList;
         }
 
-        public TD getByID(int id)
+        public TDTO getByID(int id)
         {
-            return ConvertToDestinationType(_context.Set<TS>().Find(id));
+            return ConvertToDestinationType(_context.Set<TEntity>().Find(id));
         }
 
         public void Remove(int id)
         {
-            _context.Set<TS>().Remove(_context.Set<TS>().Find(id));
+            _context.Set<TEntity>().Remove(_context.Set<TEntity>().Find(id));
         }
     }
 }

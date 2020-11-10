@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BussinessLayer.Interfaces;
+using AutoMapper;
+using BussinessLayer.Mapping;
 
 namespace BussinessLayer.Repositories
 {
@@ -12,6 +14,19 @@ namespace BussinessLayer.Repositories
     {
         public ProductsRepository(LNBagShopDBEntities context) : base(context)
         {
+        }
+
+        public IEnumerable<DTO.Product> GetAllProduct()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            var mapper = config.CreateMapper();
+            List<DTO.Product> list =
+            mapper.Map<List<DataAccessLayer.Product>, List<DTO.Product>>(_context.Products.ToList());
+            
+            return list;
         }
 
         public DTO.Product UpdateProduct(DTO.Product product)
@@ -26,10 +41,12 @@ namespace BussinessLayer.Repositories
                 currentProduct.quantity = product.quantity;
                 currentProduct.categoryID = product.categoryID;
                 currentProduct.Category = _context.Categories.Find(product.categoryID);
-                currentProduct.statusID = product.status;
+                currentProduct.statusID = product.statusID;
                 _context.SaveChanges();
             }
             return ConvertToDestinationType(currentProduct);
         }
+
+
     }
 }

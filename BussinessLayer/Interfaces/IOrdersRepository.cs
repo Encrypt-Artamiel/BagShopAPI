@@ -8,5 +8,6 @@ namespace BussinessLayer.Interfaces
 {
     public interface IOrdersRepository:IRepositoryBase<DataAccessLayer.Order,DTO.Order>
     {
+        void addOrder(DTO.Order order);
     }
 }

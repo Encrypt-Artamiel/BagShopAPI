@@ -23,6 +23,6 @@ namespace BussinessLayer.DTO
         public int categoryID { get; set; }
         public string categoryName { get; set; }
         [Required]
-        public bool status { get; set; }
+        public bool statusID { get; set; }
     }
 }

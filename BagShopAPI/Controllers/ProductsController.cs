@@ -8,7 +8,6 @@ using BussinessLayer.DTO;
 using BussinessLayer.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using BussinessLayer.DAO;
 using Microsoft.AspNetCore.Http.Extensions;
 using System.IO;
 using System.Runtime.Remoting.Contexts;
@@ -34,14 +33,10 @@ namespace BagShopAPI.Controllers
 
         // GET api/values
         [HttpGet]
-        public IActionResult Get()
+        public IEnumerable<BussinessLayer.DTO.Product> Get()
         {
-            var list = _unitOfWork.Products.getAll();
-            if (list.Count() > 0)
-            {
-                return StatusCode(StatusCodes.Status200OK, list);
-            }
-            return StatusCode(StatusCodes.Status204NoContent);
+            var list = _unitOfWork.Products.GetAllProduct();
+            return list;
         }
 
         // GET api/values/5

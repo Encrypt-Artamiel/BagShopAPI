@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace BussinessLayer.Interfaces
 {
-    public interface IRepositoryBase<TS,TD>
-        where TS:class
-        where TD:class
+    public interface IRepositoryBase<TEntity,TDTO>
+        where TEntity : class //TS class nguồn
+        where TDTO : class //TD class đến
     {
-        TD ConvertToDestinationType(TS entity);
-        TS ConvertToSourceType(TD entity);
-        IEnumerable<TD> getAll();
-        TD getByID(int id);
-        IEnumerable<TD> Find(Expression<Func<TS,bool>>expression);
-        void Add(ref TD entity);
+        TDTO ConvertToDestinationType(TEntity entity);
+        TEntity ConvertToSourceType(TDTO entity);
+        IEnumerable<TDTO> getAll();
+        TDTO getByID(int id);
+        IEnumerable<TDTO> Find(Expression<Func<TEntity, bool>>expression);
+        void Add(ref TDTO entity);
         void Remove(int id);
     }
 }

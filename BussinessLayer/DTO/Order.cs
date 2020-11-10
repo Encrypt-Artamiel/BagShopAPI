@@ -17,7 +17,7 @@ namespace BussinessLayer.DTO
         public string customerAddress { get; set; }
         [Required]
         public string customerPhone { get; set; }
-        public System.DateTime orderDate { get; set; }
+        public DateTime orderDate { get; set; }
         [Required]
         public bool paymentStatus { get; set; }
         [Required]

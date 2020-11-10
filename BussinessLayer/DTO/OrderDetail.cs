@@ -9,14 +9,12 @@ namespace BussinessLayer.DTO
 {
     public class OrderDetail
     {
-        [Required]
         public string orderID { get; set; }
         [Required]
         public int productID { get; set; }
-        public string productName { get; set; }
-        [Required]
         public int quantity { get; set; }
         [Required]
         public long total { get; set; }
+
     }
 }
