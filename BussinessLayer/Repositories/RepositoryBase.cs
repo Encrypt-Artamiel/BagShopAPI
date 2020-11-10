@@ -16,6 +16,7 @@ namespace BussinessLayer.Repositories
         where TDTO : class //DTO
     {
         protected readonly LNBagShopDBEntities _context;
+        protected IMapper mapper;
         public RepositoryBase(LNBagShopDBEntities context)
         {
             _context = context;
@@ -28,6 +29,11 @@ namespace BussinessLayer.Repositories
             });
             var mapper = config.CreateMapper();
             return mapper.Map<TEntity, TDTO>(entity);
+            mapper = config.CreateMapper();
+        }
+        public TD ConvertToDestinationType(TS entity)
+        {            
+            return mapper.Map<TS, TD>(entity);
         }
         public TEntity ConvertToSourceType(TDTO dto)
         {

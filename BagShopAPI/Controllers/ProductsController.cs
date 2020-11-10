@@ -35,8 +35,13 @@ namespace BagShopAPI.Controllers
         [HttpGet]
         public IEnumerable<BussinessLayer.DTO.Product> Get()
         {
-            var list = _unitOfWork.Products.GetAllProduct();
-            return list;
+            
+            var list = _unitOfWork.Products.getAll();
+            if (list.Count() > 0)
+            {
+                return StatusCode(StatusCodes.Status200OK, list);
+            }
+            return StatusCode(StatusCodes.Status204NoContent);
         }
 
         // GET api/values/5
@@ -45,8 +50,9 @@ namespace BagShopAPI.Controllers
         public ActionResult<Product> Get(int id)
         {
             var product = _unitOfWork.Products.getByID(id);
+            //List<Product> products = _unitOfWork.Products.Find(cond => cond.quantity > 0);
             if (product == null) return NotFound();
-            return StatusCode(StatusCodes.Status302Found,product);
+            return Ok(product);
         }
         // POST api/values
         [HttpPost, DisableRequestSizeLimit]
@@ -74,7 +80,7 @@ namespace BagShopAPI.Controllers
                 return StatusCode(StatusCodes.Status201Created,product);
             }catch(Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,ex);
+                return StatusCode(StatusCodes.Status500InternalServerError,ex.Message);
             }            
         }
 
@@ -127,7 +133,7 @@ namespace BagShopAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
     }
