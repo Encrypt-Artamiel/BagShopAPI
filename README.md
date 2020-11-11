@@ -9,13 +9,13 @@
 * Visual Studio Code
 * MS-SQL Management Studio
 ### Used language
-## Front-end
+#### Front-end
 * Template by Colorlib
 * Bootstrap
 * HTML
 * CSS
 * Javascript
-## Back-end
+#### Back-end
 * SQL
 * C#
 ### Implemented technology
