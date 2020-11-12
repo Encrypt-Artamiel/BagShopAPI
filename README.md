@@ -1,4 +1,4 @@
-# [PRN292]-[.NET & C#]-[FPT University]-[(https://github.com/Encrypt-Artamiel/BagShopAPI)]
+# [PRN292]-[.NET & C#]-[FPT University]-[(https://github.com/longbnh/BagShopAPI)]
 ### This repository stores resources regarding to Course Project Assignment using in LAB Java2EE class at Fall 2020, FPT University, HCMC Campus
 ## Bag Shop API
 ### Author 
